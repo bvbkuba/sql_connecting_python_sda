@@ -14,6 +14,25 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 name VARCHAR NOT NULL);"""  #create table in sql
 engine.execute(position)
 
+# Funkcja dodająca do sqla
+
+users = [(1,'Python Developer'),(2,'SQL Developer'),(3,'MS Excel Master')]
+
+# ****************************************
+def add_users(engine,list_users):
+    results = []   #lista do przechowywania danychh
+    for (id,name) in list_users:
+        result = engine.execute(
+            f"INSERT INTO POSITION VALUES ({id},'{name}')")
+        results.append(result)  #dodaje do sqla userów
+    return results    #musimy coś zwracać
+
+#Można by było zrobić tylko for i dać engine.execute....
+
+
+add_users(engine,users)
+# *************************************
+
 employee = """CREATE TABLE Employee(
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 first_name VARCHAR,
@@ -52,3 +71,5 @@ engine.execute("INSERT INTO Employee ("
 
 query_employee = engine.execute("SELECT * FROM Employee")
 show_table(query_employee)
+
+
