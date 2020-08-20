@@ -50,9 +50,15 @@ engine.execute(employee)
 #Dodawanie wierszy
 engine.execute("INSERT INTO Department(name) VALUES ('HR');")   # za każdym razem musimy dawać engine.execute - czy tworząc tabele czy dodając wiersz
 engine.execute("INSERT INTO Department(name) VALUES ('IT');")
+engine.execute("INSERT INTO Department(name) VALUES ('Warehouse');")
+engine.execute("INSERT INTO Department(name) VALUES ('Accountant');")
+engine.execute("INSERT INTO Department(name) VALUES ('Finance');")
+engine.execute("INSERT INTO Department(name) VALUES ('Sales');")
 
 # print(engine.execute("SELECT * FROM Department"))  # wrong
-# print(engine.execute("SELECT * FROM Department").first()) # zwróci tylko 1 wiersz
+print('*'*50)
+print(engine.execute("SELECT * FROM Department").first()) # zwróci tylko 1 wiersz, fetchall zwróci wszystko w postaci listy krotek, fetchmany(X) - listę x krotek
+print('*'*50)
 query = engine.execute("SELECT * FROM Department")    #najlepsza opcja - przypisanie do zmiennej a potem pętla for
 def show_table(select_query):
     for i in select_query:

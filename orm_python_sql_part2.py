@@ -10,7 +10,8 @@ class User(Base):
     nickname = Column(String)
     def __repr__(self):
         return f"<User(name={self.name}, fullname={self.fullname}, nickname={self.nickname})>"
+
 Base.metadata.create_all(engine)
 ed_user = User(name='ed', fullname='Ed Jones', nickname='edsnickname')
 
-User.__table__
+print(User.__table__)
