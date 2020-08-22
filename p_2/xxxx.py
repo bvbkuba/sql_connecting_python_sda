@@ -51,9 +51,9 @@ Base.metadata.create_all(engine)  # łączy mappingi z sesją"""
 Base.metadata.create_all(engine)  #tworzymy mapowanie
 
 USERS_DATA = (
-    {"name": "'Robert'", "fullname": "'Robert De Niro'", "nickname": "'Bobby'"},
-    {"name": "'Bob'", "fullname": "'Dylan'", "nickname": "'Singer'"},
-    {"name": "'Bob'", "fullname": "'Marley'", "nickname": "'Singer as well'"},
+    {"name": "Robert", "fullname": "Robert De Niro", "nickname": "Bobby"},
+    {"name": "Bob", "fullname": "Dylan", "nickname": "Singer"},
+    {"name": "Bob", "fullname": "Marley", "nickname": "Singer as well"},
 )
 
 def create_users_bulk(data):
@@ -82,19 +82,21 @@ for user in session.query(User.id,User.nickname.label('new_name')):
 
 banned_users = aliased(User,name = 'banned_user')   #alt + enter pozwala importować od razu
 
-for user in session.query(banned_users.nickname.label('alter')):
+for user in session.query(banned_users.nickname.label('alter')):   #do nazwania tabeli tak jakby kopii aby móc pracować
+    #przykładowo chcemy pracować na 2 tych samych kolumnach tej samej tabeli to tworzymy label i na nim działamy
     print(user.alter)
 
 
 test_user = session.query(User).filter(text('id=:id')).params(id = 1).all()   #Jeżeli chcemy do zapytania przekazać zmienne musimy je oznaczyć z użyciem dwukropka
 print(test_user)
 
-print('******************************************')
+print('******************************************','hereeeeee')
 
-sql_statement = text("SELECT * FROM users WHERE name = :name")
+sql_statement = text("SELECT * FROM users WHERE name = :name")  # przypisujemy do name kolumne name
 user = session.query(User).from_statement(sql_statement).params(name='Bob').all()
 print(user)
-# ???
+
+print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 
 sql_statement = text("SELECT * FROM users WHERE id = :id")
 user = session.query(User).from_statement(sql_statement).params(id=1).all()
